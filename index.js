@@ -7,10 +7,21 @@ var client = new Twitter({
   access_token_key: "976809861487964162-S9IP4Ni5ZZqJ6NTh8GVVKcx7OQmX6s0",
   access_token_secret: "zvwmtHTmzWJSrvGpqYwIHZyOCu7EjoKih7SQTDNdLz6kO"
 });
-var stream = client.stream("statuses/filter", { track: "javascript" });
+var stream = client.stream("statuses/filter", { track: "@bloomsuculenta" });
 
-stream.on("data", function(event) {
-  console.log(event && event.text);
+stream.on("data", function(element) {
+  console.log(element && element.text);
+  client.post(
+    "statuses/update",
+    {
+      status: "fala ai @" + element.user.screen_name,
+      in_reply_to_status_id: element.id_str
+    },
+    function(error, tweet, response) {
+      if (!error) {
+      } else console.log(error);
+    }
+  );
 });
 
 const nomes = ["ricardo", "imautentic_", "d4mmit"];
