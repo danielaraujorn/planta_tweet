@@ -93,17 +93,21 @@ const frase = {
 app.get("/", function(req, res) {
   res.send("fala ai seu arrombado");
 });
+app.get("/publicar/:humor", function(req, res) {
+  let myfrase = frase[req.params.humor]();
+  res.send(myfrase);
+});
 app.post("/publicar/:humor", function(req, res) {
   let myfrase = frase[req.params.humor]();
   console.log(myfrase);
-  //   client.post(
-  //     "statuses/update",
-  //     { status: myfrase },
-  //     function(error, tweet, response) {
-  //       if (error) throw error;
-  //       console.log(tweet); // Tweet body.
-  //     }
-  //   );
+  client.post("statuses/update", { status: myfrase }, function(
+    error,
+    tweet,
+    response
+  ) {
+    if (error) throw error;
+    console.log(tweet); // Tweet body.
+  });
   res.send(myfrase);
 });
 const port = Number(process.env.PORT || 3000);
