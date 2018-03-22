@@ -1,5 +1,5 @@
-var express = require("express");
-var app = express();
+var app = require("express")();
+var http = require("http").Server(app);
 var Twitter = require("twitter");
 var client = new Twitter({
   consumer_key: "JiZnINKVsiyiu2DttCgRnVChV",
@@ -95,7 +95,7 @@ app.post("/publicar/:humor", function(req, res) {
   //   );
   res.send(myfrase);
 });
-
-app.listen(Number(process.env.PORT || 3000), function() {
-  console.log("Example app listening on port 3000!");
+const port = Number(process.env.PORT || 3000);
+http.listen(port, function() {
+  console.log("Example app listening on port " + port);
 });
