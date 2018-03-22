@@ -53,6 +53,25 @@ const frase = {
   carente: () => sort(carente)
 };
 
+client.get("search/tweets", { q: "@bloomsuculenta" }, function(
+  error,
+  tweets,
+  response
+) {
+  tweets.statuses.forEach(element => {
+    console.log(element);
+    client.post(
+      "statuses/retweet/" + element.id_str,
+      { status: "fala ai" },
+      function(error, tweet, response) {
+        if (!error) {
+          console.log(tweet);
+        } else console.log(error);
+      }
+    );
+  });
+});
+
 app.post("/publicar/:humor", function(req, res) {
   let myfrase = frase[req.params.humor]();
   console.log(myfrase);
