@@ -79,6 +79,9 @@ const frase = {
 //     );
 //   });
 // });
+app.get("/", function(req, res) {
+  res.send("fala ai seu arrombado");
+});
 app.post("/publicar/:humor", function(req, res) {
   let myfrase = frase[req.params.humor]();
   console.log(myfrase);
@@ -93,6 +96,6 @@ app.post("/publicar/:humor", function(req, res) {
   res.send(myfrase);
 });
 
-app.listen(3000, function() {
+app.listen(Number(process.env.PORT || 3000), function() {
   console.log("Example app listening on port 3000!");
 });
